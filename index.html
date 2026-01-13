@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>QR Scan - QRスキャナー</title>
+    <meta name="description" content="カメラでQRコードをスキャンするPWAアプリ" />
+    <meta name="author" content="QR Scan" />
+    <meta name="theme-color" content="#4F46E5" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="QR Scan" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico" />
+
+    <!-- OG Tags -->
+    <meta property="og:title" content="QR Scan - QRスキャナー" />
+    <meta property="og:description" content="カメラでQRコードをスキャンするPWAアプリ" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="module" crossorigin src="/pwa_qrScan/assets/index-iJ4m9qkU.js"></script>
+    <link rel="stylesheet" crossorigin href="/pwa_qrScan/assets/index-D4vsEHfx.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+    
+    <!-- GitHub Pages SPA対応：404.htmlからのリダイレクトを処理 -->
+    <script>
+      (function() {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+        
+        // クエリパラメータからパスを復元
+        const query = window.location.search;
+        if (query) {
+          const params = new URLSearchParams(query);
+          const path = params.get('p');
+          if (path) {
+            const decodedPath = path.replace(/~and~/g, '&');
+            const basePath = '/pwa_qrScan';
+            const fullPath = basePath + decodedPath;
+            window.history.replaceState(null, null, fullPath + window.location.hash);
+          }
+        }
+      })();
+    </script>
+    
+    <!-- Service Worker登録 -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          // 本番環境でのみService Workerを登録
+          const basePath = window.location.pathname.startsWith('/pwa_qrScan') ? '/pwa_qrScan' : '';
+          navigator.serviceWorker.register(basePath + '/sw.js', {
+            scope: basePath + '/'
+          }).then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }).catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

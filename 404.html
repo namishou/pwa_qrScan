@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    // GitHub Pages SPA対応
+    // 現在のパスをクエリパラメータに変換してindex.htmlにリダイレクト
+    const pathSegmentsToKeep = 1; // リポジトリ名の階層分
+
+    const l = window.location;
+    const pathAfterRepo = l.pathname
+      .split('/')
+      .slice(pathSegmentsToKeep + 1)
+      .join('/')
+      .replace(/&/g, '~and~');
+    
+    const search = l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '';
+    
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, pathSegmentsToKeep + 1).join('/') + '/' +
+      '?p=/' + pathAfterRepo + search + l.hash
+    );
+  </script>
+</head>
+<body>
+  リダイレクト中...
+</body>
+</html>

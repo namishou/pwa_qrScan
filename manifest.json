@@ -1,0 +1,26 @@
+{
+  "name": "QR Scan",
+  "short_name": "QR Scan",
+  "description": "カメラでQRコードをスキャンするPWAアプリ",
+  "start_url": "/pwa_qrScan/",
+  "scope": "/pwa_qrScan/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f6f8",
+  "theme_color": "#4F46E5",
+  "icons": [
+    {
+      "src": "/pwa_qrScan/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa_qrScan/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["utilities", "productivity"]
+}
