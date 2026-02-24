@@ -26,7 +26,7 @@
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <script type="module" crossorigin src="/pwa_qrScan/assets/index-CT4HkUTh.js"></script>
+    <script type="module" crossorigin src="/pwa_qrScan/assets/index-Boh_wBio.js"></script>
     <link rel="stylesheet" crossorigin href="/pwa_qrScan/assets/index-BPJX4C_I.css">
   </head>
 
@@ -67,8 +67,31 @@
             scope: basePath + '/'
           }).then(function(registration) {
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            // 新しいバージョンの検出と自動更新
+            registration.addEventListener('updatefound', function() {
+              var newWorker = registration.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', function() {
+                  if (newWorker.state === 'activated') {
+                    // 新しいSWがアクティブになったらリロード
+                    if (navigator.serviceWorker.controller) {
+                      console.log('New version available, reloading...');
+                      window.location.reload();
+                    }
+                  }
+                });
+              }
+            });
           }).catch(function(err) {
             console.log('ServiceWorker registration failed: ', err);
+          });
+          // controllerchangeでもリロード（skipWaiting対応）
+          var refreshing = false;
+          navigator.serviceWorker.addEventListener('controllerchange', function() {
+            if (!refreshing) {
+              refreshing = true;
+              window.location.reload();
+            }
           });
         });
       }

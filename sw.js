@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pwa-qrscan-v1';
+const CACHE_NAME = 'pwa-qrscan-v2';
 const BASE_PATH = '/pwa_qrScan';
 
 const urlsToCache = [
